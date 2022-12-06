@@ -34,7 +34,7 @@ export function Girl({ nickName }) {
       camera.lookAt(x, y, z + 5);
       camera.position.lerp(vec.set(x, y + 20, z - 25), 0.1);
       text.current.quaternion.copy(camera.quaternion);
-      // console.log(test.current);
+
       test.current?.setTranslation({ x, y, z });
       // test.current?.setLinvel({ x: 0, y: 10, z: 0.00003 });
 

@@ -97,14 +97,14 @@ const NftCreate = () => {
 
   const handleCreate = async () => {
     console.log(imgArr[0][0]);
-    console.log(imgArr[1][0]);
+    // console.log(imgArr[1][0]);
     dispatch(modalChange({ change: "loading" }));
     const formData = new FormData();
     formData.append("address", address);
     formData.append("name", nickName);
     formData.append("description", desc);
     formData.append("file", imgArr[0][0]);
-    formData.append("file", imgArr[1][0]);
+    // formData.append("file", imgArr[1][0]);
     // formData.append("file", img.imgData);
 
     const data = await nftCreate(formData);
@@ -144,7 +144,7 @@ const NftCreate = () => {
         </div>
         <div className="imgBox cc">
           {/* {img.preview ? ( */}
-          {imgArr.length > 1 ? (
+          {imgArr.length > 0 ? (
             <img
               src={img.preview}
               alt=""
@@ -157,7 +157,7 @@ const NftCreate = () => {
                 type="file"
                 id="file"
                 multiple={true}
-                // webkitdirectory={true}
+                webkitdirectory={true}
                 // mozdirectory={true}
                 // webkitdirectory
                 // directory={true}

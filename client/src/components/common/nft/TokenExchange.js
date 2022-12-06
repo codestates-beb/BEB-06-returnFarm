@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { animated } from "react-spring";
 import styled from "styled-components";
 import { nftExchange, nftIpExchange } from "../../../api/nft";
+import { userInfo } from "../../../api/user";
 import useDivMove from "../../../hooks/useDivMove";
 import { BasicBox } from "../../../libs/cssFrame";
 import { modalChange } from "../../../stores/reducers/stateSlice";
+import { myInfoSave } from "../../../stores/reducers/userSlice";
 
 const TokenExchangeBox = styled(BasicBox)`
   display: flex;
@@ -85,6 +87,18 @@ const TokenExchange = () => {
   });
   const [tChange, setTChange] = useState(false);
 
+  const tokenUpdate = async () => {
+    const { data } = await userInfo({ address });
+    dispatch(
+      myInfoSave({
+        data: {
+          haes_sal_amount: data.haes_sal_amount,
+          ip_amount: data.ip_amount,
+        },
+      })
+    );
+  };
+
   const handleExchange = async () => {
     dispatch(modalChange({ change: "loading" }));
     const obj = {
@@ -93,6 +107,7 @@ const TokenExchange = () => {
     };
     const { status } = await nftExchange(obj);
     if (status) {
+      tokenUpdate();
       alert("교환 성공!");
     } else {
       alert("교환에 실패 했습니다!");
@@ -107,6 +122,7 @@ const TokenExchange = () => {
     };
     const { status } = await nftIpExchange(obj);
     if (status) {
+      tokenUpdate();
       alert("교환 성공!");
     } else {
       alert("교환에 실패 했습니다!");

@@ -2,7 +2,12 @@ import { RigidBody } from "@react-three/rapier";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import handleSound from "../../../data/sounds/sound";
-import { tileUpdate } from "../../../stores/reducers/userSlice";
+import {
+  testAxisCheck,
+  testBuildCheck,
+} from "../../../stores/reducers/stateSlice";
+import { nftBuildSave, tileUpdate } from "../../../stores/reducers/userSlice";
+import { Well } from "../../models/objects/Well";
 import Tile from "./Tile";
 
 const Ground = () => {
@@ -11,9 +16,11 @@ const Ground = () => {
   const num = Math.sqrt(tileArr.length);
   const [itemNum, itemName] = useSelector((state) => state.game.selectItem);
   const eventLock = useSelector((state) => state.state.eventLock);
+  const textC = useSelector((state) => state.state.testBuild);
+  const textB = useSelector((state) => state.user.nftBuildList);
 
-  const handleClick = (data, tileIndex) => {
-    if (!eventLock) {
+  const handleClick = (data, tileIndex, test) => {
+    if (!eventLock && !textC) {
       handleSound("action");
       if (data.status === null && itemName.includes("씨앗")) {
         const timeDate = new Date().toLocaleDateString().slice(0, -1);
@@ -29,8 +36,25 @@ const Ground = () => {
           })
         );
       }
+    } else if (textC) {
+      console.log(data);
+      dispatch(nftBuildSave({ build: { x: test[0], z: test[1] } }));
+      dispatch(
+        testBuildCheck({
+          check: false,
+        })
+      );
     }
   };
+
+  const testCheck = (axis) => {
+    dispatch(
+      testAxisCheck({
+        check: axis,
+      })
+    );
+  };
+
   return (
     <group position={[0, 0, 0]}>
       {tileArr.map((tileData, index) => (
@@ -41,6 +65,7 @@ const Ground = () => {
           numZ={Math.floor(index / num)}
           index={index}
           handleClick={handleClick}
+          testCheck={testCheck}
         />
       ))}
       <RigidBody colliders="hull" type="fixed">
@@ -51,6 +76,13 @@ const Ground = () => {
           </mesh>
         </group>
       </RigidBody>
+
+      {/* 설치 test 입니다! */}
+      {textB.map((model, index) => (
+        <group position={[model.x, 0, model.z]} scale={0.2}>
+          <Well />
+        </group>
+      ))}
     </group>
   );
 };

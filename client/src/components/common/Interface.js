@@ -7,7 +7,6 @@ import HotkeyBox from "./hotkeyBox/HotkeyBox";
 import Inventory from "./inventory/Inventory";
 import MenuBox from "./menuBox/MenuBox";
 import Status from "./status/Status";
-import UseKeyEvents from "../../hooks/useKeyEvents";
 import NftList from "./nft/NftList";
 import NftExchange from "./nft/NftExchange";
 import NftCreate from "./nft/NftCreate";
@@ -15,7 +14,7 @@ import TokenExchange from "./nft/TokenExchange";
 
 const InterfaceBox = styled.div`
   position: absolute;
-  z-index: 100;
+  z-index: 50000000000;
 `;
 
 const Interface = () => {

@@ -50,7 +50,7 @@ const NftBox = ({ nft, index, setSellData, address, setNftId }) => {
         const targetY = (yCenter - e.nativeEvent.offsetY) / 4;
         imgRef.current.style.transform = `rotateX(${targetY}deg) rotateY(${targetX}deg)`;
       }}
-      onClick={() => setNftId(nft[1])}
+      // onClick={() => setNftId(nft[1])}
     >
       {nftData ? (
         <div

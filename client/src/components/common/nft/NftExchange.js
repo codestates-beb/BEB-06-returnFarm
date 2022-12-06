@@ -8,6 +8,7 @@ import { nftBuy, nftSell } from "../../../api/nft";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NftBox from "./NftBox";
 import { modalChange } from "../../../stores/reducers/stateSlice";
+import { handleNftList } from "../../../stores/reducers/gameSlice";
 
 const NftExchangeBox = styled(BasicBox)`
   display: flex;
@@ -21,9 +22,19 @@ const NftExchangeBox = styled(BasicBox)`
   .nftMarketItemBox {
     width: 100%;
     height: 100%;
+    align-items: flex-start;
+
     .nftMarketItem {
+      width: 100%;
+      height: 100px;
+      background-color: rgba(36, 36, 36, 0.493);
       :hover {
-        background-color: rgba(255, 0, 0, 0.219);
+        background-color: rgba(83, 143, 255, 0.219);
+      }
+      div {
+        width: 100%;
+        color: white;
+        //background-color: white;
       }
     }
   }
@@ -196,6 +207,7 @@ const NftExchange = () => {
 
     const { status, data } = await nftSell(nftData);
     if (status === 200) {
+      dispatch(handleNftList({ list: [...nftMarketList, nftData] }));
       alert(data);
     } else {
       alert("등록 실패!");
@@ -234,13 +246,14 @@ const NftExchange = () => {
             {nftMarketList.length ? (
               nftMarketList.map((nftData, index) => (
                 <div
-                  className="nftMarketItem"
+                  key={index}
+                  className="nftMarketItem cc"
                   onClick={() => {
                     test(nftData);
                   }}
                 >
-                  <img src={nftData.img_url} alt="" />
-                  <div>{nftData.selling_price}</div>
+                  <img src={nftData.imgUrl} alt="" />
+                  <div className="cc">{nftData.sellingPrice} IP</div>
                 </div>
               ))
             ) : (

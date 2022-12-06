@@ -7,7 +7,11 @@ import NftBox from "./NftBox";
 import { nftMyList, nftTransfer } from "../../../api/nft";
 import { useDispatch, useSelector } from "react-redux";
 import { nftUpdate } from "../../../stores/reducers/userSlice";
-import { modalChange } from "../../../stores/reducers/stateSlice";
+import {
+  handleTopMenu,
+  modalChange,
+  testBuildCheck,
+} from "../../../stores/reducers/stateSlice";
 
 const NftListBox = styled(BasicBox)`
   left: 50vw;
@@ -140,12 +144,17 @@ const NftList = () => {
         <div className="nfts">
           {myNftList.length > 0 ? (
             myNftList.map((nft, index) => (
-              <NftBox
-                nft={nft}
-                index={index}
+              <div
                 key={`nft${index}`}
-                setNftId={setNftId}
-              />
+                onClick={() => {
+                  // test
+                  dispatch(handleTopMenu({ select: null }));
+                  dispatch(testBuildCheck({ check: true }));
+                  console.log(nft);
+                }}
+              >
+                <NftBox nft={nft} index={index} setNftId={setNftId} />
+              </div>
             ))
           ) : (
             <div className="nullText cc">소유한 NFT가 없습니다!</div>

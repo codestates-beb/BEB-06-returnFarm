@@ -11,7 +11,7 @@ import {
 import { Seed } from "../../models/plant/Seed";
 import Tomato from "../../models/plant/Tomato";
 
-const Tile = ({ tileData, numX, numZ, index, handleClick }) => {
+const Tile = ({ tileData, numX, numZ, index, handleClick, testCheck }) => {
   const dispatch = useDispatch();
   const [select, setSelect] = useState(false);
   const [{ type, scale, seed }, setData] = useState({
@@ -40,7 +40,7 @@ const Tile = ({ tileData, numX, numZ, index, handleClick }) => {
         setData({ type: flowreArr[num - 1], scale: 5, seed: false });
       } else if (check) {
         // 테스트 조건
-        if (tileData.estimated_time === "2022. 12. 5") {
+        if (tileData.estimated_time === "2022. 12. 6") {
           setData({ type: <Tomato />, scale: 0.5, seed: true });
         } else {
           setData({ type: <Seed />, scale: 0.02, seed: true });
@@ -63,13 +63,17 @@ const Tile = ({ tileData, numX, numZ, index, handleClick }) => {
       rotation={[-Math.PI / 2, 0, 0]}
       position={[72 - numX * 5.1, 0, 72 - numZ * 5.1]}
       onPointerOver={(e) => {
+        const { x, z } = e.object.position;
         setSelect(new Color(255, 255, 255));
+        testCheck([x, 0, z]);
       }}
       onPointerOut={(e) => {
         setSelect(new Color(1, 1, 1));
+        testCheck([0, -500, 0]);
       }}
-      onClick={() => {
-        handleClick(tileData, index);
+      onClick={(e) => {
+        const { x, z } = e.object.position;
+        handleClick(tileData, index, [x, z]);
       }}
       onContextMenu={(e) => {
         const { x, y, z } = e.object.position;
