@@ -19,6 +19,7 @@ const userSlice = createSlice({
     bag: [],
     tile: [],
     nft: false,
+    nftBuildList: [],
   },
   reducers: {
     myInfoSave: (state, action) => {
@@ -61,9 +62,23 @@ const userSlice = createSlice({
     nftUpdate: (state, action) => {
       state.nft = action.payload.nft;
     },
+    nftBuildSave: (state, action) => {
+      const { build, remove } = action.payload;
+      if (build) {
+        state.nftBuildList = [...state.nftBuildList, build];
+      } else if (remove) {
+        // 삭제 코드
+        const newList = state.nftBuildList.fliter((data, index) => {
+          if (data.name === remove) {
+            return true;
+          }
+        });
+        state.nftBuildList = newList;
+      }
+    },
   },
 });
 
 export default userSlice;
-export const { myInfoSave, bagUpdate, tileUpdate, nftUpdate } =
+export const { myInfoSave, bagUpdate, tileUpdate, nftUpdate, nftBuildSave } =
   userSlice.actions;

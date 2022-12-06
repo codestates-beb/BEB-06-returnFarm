@@ -11,6 +11,9 @@ const stateSlice = createSlice({
     modalCheck: "",
     rightClick: [false, false, false],
     eventLock: false,
+
+    testBuild: false,
+    testAxis: [0, -500, 0],
   },
   reducers: {
     handleTile: (state, action) => {
@@ -60,6 +63,13 @@ const stateSlice = createSlice({
     handleEventLock: (state, action) => {
       state.eventLock = action.payload.lock;
     },
+
+    testBuildCheck: (state, action) => {
+      state.testBuild = action.payload.check;
+    },
+    testAxisCheck: (state, action) => {
+      state.testAxis = action.payload.check;
+    },
   },
 });
 
@@ -73,4 +83,6 @@ export const {
   sellChange,
   handleMouse,
   handleEventLock,
+  testBuildCheck,
+  testAxisCheck,
 } = stateSlice.actions;

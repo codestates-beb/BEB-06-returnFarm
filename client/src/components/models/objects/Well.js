@@ -7,9 +7,7 @@ export function Well(props) {
   //const [pos, setPos] = useState([0, -5000000, 0]);
 
   return (
-    <group dispose={null} scale={0.2}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshNormalMaterial />
+    <group dispose={null} {...props}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[8.07, 10.94, 0]}>
