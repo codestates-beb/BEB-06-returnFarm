@@ -11,7 +11,7 @@ const ModalBox = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(209, 209, 209, 0.5);
-  z-index: ${(props) => (props.check ? "90000000000" : "-50000")};
+  z-index: ${(props) => (props.check ? "100000000000" : "-50000")};
   button {
     width: 500px;
     height: 500px;
