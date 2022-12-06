@@ -2,8 +2,9 @@ import { tokenValidation } from "../middleware/validation";
 import { userInfo, userPfp } from "../db_Process/user.db";
 
 const getMyinfo = async (req, res, next) => {
-  const { user_id, address } = req.body;
-  const dbResult = await userInfo(user_id, address);
+  console.log(req.body);
+  const { address } = req.body;
+  const dbResult = await userInfo(address);
 
   console.log(dbResult);
   if (dbResult) {
