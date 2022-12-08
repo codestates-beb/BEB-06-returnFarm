@@ -67,6 +67,7 @@ const HotkeyBox = () => {
   const scroll = useSelector((state) => state.game.selectScroll);
   let arr = Array(9).fill(false);
 
+  // 밑 ui 컨트롤
   return (
     <HotkeyContainer className="cc">
       <div className="hotkeyroll">
